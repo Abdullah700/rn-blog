@@ -7,6 +7,7 @@ import IndexScreen from '../screens/indexScreen';
 
 const Stack = createStackNavigator();
 const RootNavigator = () => {
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">

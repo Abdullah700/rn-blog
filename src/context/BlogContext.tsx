@@ -10,13 +10,18 @@ interface IBLog {
     title: string
 }
 
+interface IAction {
+    type: string
+}
+
 const actions = {
     ADD_BLOG_POST: 'add_blog_post'
 }
 
-const blogReducer: Reducer<IBLog[], { type: string }> = (state, {type}) => {
+const blogReducer: Reducer<IBLog[], IAction> = (state, {type}) => {
+    const {ADD_BLOG_POST} = actions;
     switch (type) {
-        case 'add_blog_post':
+        case ADD_BLOG_POST:
             return [...state, {title: `Blog Post #${state.length + 1}`}]
         default:
             return state
@@ -37,3 +42,4 @@ export const BlogProvider: FC = ({children}) => {
 
 
 export default BlogContext
+

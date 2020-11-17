@@ -7,12 +7,14 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import {Link, useNavigation} from '@react-navigation/native';
 import {Context} from "../context/BlogContext";
 
 import {Feather} from '@expo/vector-icons';
 
 const IndexScreen = () => {
-    const {state, addBlogPosts , deleteBlogPosts} = useContext<any>(Context);
+    const {state, addBlogPosts, deleteBlogPosts} = useContext<any>(Context);
+    const {navigate} = useNavigation()
     const a = useContext<any>(Context);
     return (
         <View>
@@ -21,9 +23,14 @@ const IndexScreen = () => {
                       renderItem={({item}) => {
                           return (
                               <View style={styles.row}>
-                                  <Text style={styles.title}>{item.title} - {item.id}</Text>
-                                  <TouchableOpacity onPress={()=>deleteBlogPosts(item.id)}>
-                                      <Feather style={styles.icon} name={'trash'}/>
+                                  <TouchableOpacity onPress={()=> navigate('show',{id:item.id})} >
+                                      <Text
+                                          style={styles.title}>{item.title} - {item.id}</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                      onPress={() => deleteBlogPosts(item.id)}>
+                                      <Feather style={styles.icon}
+                                               name={'trash'}/>
                                   </TouchableOpacity>
                               </View>
                           )

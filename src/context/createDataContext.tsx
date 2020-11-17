@@ -1,10 +1,10 @@
 import React, {createContext, FC, Reducer, useReducer} from 'react';
-import {IAction} from "./BlogContext";
+import {IAction, IBLog} from './BlogContext';
 
-export default (reducer: React.Reducer<any[], >, actions: { addBlogPosts: (dispatch: (arg0: { type: string }) => void) => () => void }, p: any[]) => {
+export default (reducer: React.Reducer<IBLog[], IAction>, actions: any, init: any[]) => {
     const Context = createContext(undefined);
     const Provider: FC = ({children}) => {
-        const [state, dispatch] = useReducer(reducer, [])
+        const [state, dispatch] = useReducer(reducer, init)
 
         const boundActions:any = {};
 

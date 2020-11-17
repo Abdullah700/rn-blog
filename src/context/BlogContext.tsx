@@ -1,23 +1,28 @@
 import React, {Reducer} from 'react';
 import createDataContext from "./createDataContext";
 
-interface IBLog {
+export interface IBLog {
     title: string
+    id:string|number
 }
 
-interface IAction {
-    type: string
+export interface IAction {
+    type?: string
+    payload?:any
 }
 
 const actions = {
-    ADD_BLOG_POST: 'add_blog_post'
+    ADD_BLOG_POST: 'add_blog_post',
+    DELETE_BLOG_POST: 'delete_blog_post'
 }
-const {ADD_BLOG_POST} = actions
+const {ADD_BLOG_POST, DELETE_BLOG_POST} = actions
 
-const blogReducer: Reducer<IBLog[], IAction> = (state, {type}) => {
+const blogReducer: Reducer<IBLog[], IAction> = (state, {type,payload}) => {
     switch (type) {
         case ADD_BLOG_POST:
-            return [...state, {title: `Blog Post #${state.length + 1}`}]
+            return [...state, {id: Math.floor(Math.random() * 99999999),title: `Blog Post #${state.length + 1}`}]
+        case DELETE_BLOG_POST:
+            return state.filter((blogPost) => blogPost.id !== payload)
         default:
             return state
     }
@@ -28,6 +33,11 @@ const addBlogPosts = (dispatch: (arg0: { type: string; }) => void) => {
         dispatch({type: ADD_BLOG_POST})
     }
 }
+const deleteBlogPosts = (dispatch: (arg0: IAction) => void) => {
+    return (id:number|string) => {
+        dispatch({type: DELETE_BLOG_POST, payload:id})
+    }
+}
 
-export const {Context, Provider} = createDataContext(blogReducer, {addBlogPosts}, [])
+export const {Context, Provider} = createDataContext(blogReducer, {addBlogPosts, deleteBlogPosts}, [])
 

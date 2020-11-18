@@ -4,12 +4,12 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import IndexScreen from '../screens/indexScreen';
 import ShowScreen from "../screens/ShowScreen";
-
+import LinkingConfigure from './LinkingConfiguration'
 const Stack = createStackNavigator();
 const RootNavigator = () => {
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={LinkingConfigure}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="home"

@@ -18,3 +18,5 @@ Q
 babel.config.js,7/7/775bd43a34022cef87b6af825cbd551f29473f73
 J
 src/screens/ShowScreen.tsx,5/4/54450ec34ad7ad143ccc65b425d8cb730f91b118
+V
+&src/navigation/LinkingConfiguration.ts,4/5/45885300c872491328a9680959a3904aa351debc

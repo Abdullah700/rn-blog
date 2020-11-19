@@ -9,7 +9,8 @@ let newVar: LinkingOptions = {
         screens: {
             home: '/',
             show:'/show/:id'
-        }
+        },
+        initialRouteName:'home'
     }
 }
 export default newVar;

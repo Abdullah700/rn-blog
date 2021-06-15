@@ -1,37 +1,55 @@
-import {NavigationContainer, useRoute} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import React, {useContext} from 'react';
-import {StyleSheet} from 'react-native';
+import {
+  NavigationContainer,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
 import IndexScreen from '../screens/indexScreen';
-import ShowScreen from "../screens/ShowScreen";
-import LinkingConfigure from './LinkingConfiguration'
-import CreateScreen from "../screens/CreateScreen";
-import {Context} from "../context/BlogContext";
+import ShowScreen from '../screens/ShowScreen';
+import LinkingConfigure from './LinkingConfiguration';
+import CreateScreen from '../screens/CreateScreen';
+import { Context } from '../context/BlogContext';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Feather } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 const RootNavigator = () => {
-  const {state}: any = useContext(Context)
-
+  const { state }: any = useContext(Context);
   return (
     <NavigationContainer linking={LinkingConfigure}>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen
-          name="home"
+          name='home'
           component={IndexScreen}
-          options={{ title: "Blogs" }}
+          options={({ navigation }) => ({
+            title: 'Blogs',
+            headerRight: () => (
+              <TouchableOpacity
+                style={{ paddingHorizontal: 20 }}
+                onPress={() => navigation.navigate('create')}
+              >
+                <Feather name={'plus'} size={30} />
+              </TouchableOpacity>
+            ),
+          })}
         />
         <Stack.Screen
-          name="show"
+          name='show'
           component={ShowScreen}
-          options={({route}) =>
-
-               ( { title: `Details of ${state.find((p: { id: string; })=> p.id === route.params?.id).title}` })
-
-          }
+          options={({ route }) => {
+            return {
+              title: `Details of ${
+                state.find((p: { id: string }) => p.id === route.params?.id)
+                  .title
+              }`,
+            };
+          }}
         />
         <Stack.Screen
-          name="create"
+          name='create'
           component={CreateScreen}
-          options={{ title: "Create Blog" }}
+          options={{ title: 'Create Blog' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
